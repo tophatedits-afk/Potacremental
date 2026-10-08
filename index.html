@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potacremental</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="game">
+    
+        <header id="top-bar">
+            <div id="game-title">
+                <h1>Potacremental</h1>
+                    <p id="potatoes">Potatoes: 0</p>
+            </div>
+            </header>
+<div id="main">
+
+
+
+    <button id="potatoButton" aria-label="Click the potato">
+        <img src="images/potato.png" alt="Potato">
+    </button>
+
+</div>
+    <div id="upgrades">
+        <button id="buyFarmer" title="Gain 1 Potato per second." class="upgrade">Buy Farmer (10 Potatoes)</button>
+        <br>
+        <button id="buyTractor" title="Gain +3 Potato per second." class="upgrade tractorbutton">Buy Tractor (150 Potatoes)</button>
+        <br>
+        <button id="buyFertilizer" title="Gain another potato per click." class="upgrade" >Buy Fertilizer (20 Potatoes)</button>
+        <br>
+        <button id="buyPesticide" title="Gain 3 more potatoes per click." class="upgrade pesticidebutton">Buy Pesticide (100 Potatoes)</button>
+        <br>
+        <button id="buyHoe1" title="Gain 3 more potatoes per click." class="upgrade hoe1">Buy Tier 1 Hoe (500 Potatoes)</button>
+        <br>
+        <button id="buyHoe2" title="Gain 6 more potatoes per click." class="upgrade hoe2">Buy Tier 2 Hoe (2500 Potatoes)</button>
+        <br>
+        <button id="buyHoe3" title="Gain 10 more potatoes per click." class="upgrade hoe3">Buy Tier 3 Hoe (7500 Potatoes)</button>
+        <br>
+        <button id="buyHoe4" title="Gain 3x more potatoes per click." class="upgrade hoe4">Buy Tier 4 Hoe (50000 Potatoes)</button>
+    </div>
+    <div id="stats">
+         <p id="clickvalue">Potatoes per click: 1</p>
+    <p id="secondvalue">Potatoes per second: 0</p>
+    </div>
+    <div id="keybinds">
+        <p>Keybinds:</p>
+        <p>1: Buy farmer</p>
+        <p>2: Buy fertilizer</p>
+        <p>3: Buy tractor</p>
+        <p>4: Buy pesticide</p>
+    </div>
+    <div id="upgrade-stats"> 
+        <p>Stats:</p>
+        <p id="farmerCount">Farmers: 0</p>
+        <p id="fertilizerCount">Fertilizers: 0</p>
+        <p id="tractorCount">Tractors: 0</p>
+        <p id="pesticideCount">Pesticides: 0</p>
+        <p id="hoeTier">Hoe Tier: 0</p>
+    </div>
+    <!-- work in progress save popup
+    <div id="autosave">
+        <p class="autosave">Autosaved!</p>
+    </div> -->
+    
+    <script src="script.js"></script>
+</body>
+</html>

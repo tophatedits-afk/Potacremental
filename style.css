@@ -1,0 +1,88 @@
+.hoe1 {
+    visibility: visible;
+}
+.hoe2 {
+    visibility: hidden;
+}
+.hoe3 {
+    visibility: hidden;
+}
+.hoe4 {
+    visibility: hidden;
+}
+.tractorbutton {
+    visibility: hidden;
+}
+.pesticidebutton {
+    visibility: hidden;
+}
+#game-title {
+    text-align: center;
+    margin-top: 20px;
+}
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: stretch;
+}
+#potatoButton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    
+}
+
+#potatoButton img {
+    width: 250px;
+    transition: transform 0.1s;
+}
+
+#potatoButton:hover img {
+    transform: scale(1.05);
+}
+
+#potatoButton:active img {
+    transform: scale(0.95);
+}
+
+body {
+    background-color:gainsboro;
+}
+
+button {
+    background-color: goldenrod;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: darkgoldenrod;
+    transform: scale(0.95);
+}
+#keybinds {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color:darkgray;
+    border-color: gray;
+}
+#upgrades{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+#stats{
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+}
+#upgrade-stats{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
