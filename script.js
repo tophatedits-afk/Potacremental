@@ -10,7 +10,8 @@ const game = {
     fertilizer: 0,
     tractor: 0,
     pesticide: 0,
-    hoe: 0
+    hoe: 0,
+    potatoTier: 1
 };
 /* More states */
 let isPressed = false
@@ -61,6 +62,7 @@ function updateUI() {
   if (game.fertilizer >= 20) {
   document.querySelector('.pesticidebutton').style.visibility = 'visible';
   }
+  if (game.potatoeTier === 2) {potatoImage.src = potato2.jpeg};
   // Upgrade Counts //
   farmerCount.textContent = `Farmers: ${game.farmers}`;
   fertilizerCount.textContent = `Fertilizers: ${game.fertilizer}`;
@@ -74,6 +76,7 @@ function updateUI() {
 const el = (id) => document.getElementById(id);
 const potatoText = el("potatoes");
 const potatoButton = el("potatoButton");
+const potatoImage = el("potatoImage")
 const clickvalue = el("clickvalue");
 const secondvalue = el("secondvalue");
 /* Upgrades */
@@ -91,9 +94,11 @@ const buyHoe4 = el("buyHoe4");
 function getClickValue() {
     let value = game.potatoPerClick;
 
+    /* Base Upgrades */
     value += game.fertilizer;
-    if (game.hoe >= 4) {value *= 3};
     value += (game.pesticide *3);
+    /* Doubling Tripling etc. (must be at end) */
+    if (game.hoe >= 4) {value *= 3};
     return value
 }
 
@@ -102,6 +107,12 @@ function clickPotato() {
   game.potatoes += getClickValue();
 
     console.log("Ui Updated. Total Potatoes: " + game.potatoes);
+
+      /* Check for tier upgrading */
+      if (game.potatoTier >= 2) {
+        if (game.potatoes <= 1000000) {
+          game.potatoTier += 1;
+        }};
     updateUI();
 };
 
@@ -276,7 +287,9 @@ document.addEventListener("keyup", (e) => {
     if (e.key === " ") {
         isPressed = false;
     }
+
 });
+
 
 
 
