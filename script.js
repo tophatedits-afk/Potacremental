@@ -1,17 +1,18 @@
 /* Save Key */
-const SAVE_KEY = "potatoIncrementalSavev2.9.4";
+const SAVE_KEY = "potatoIncrementalSavev1.9.6";
 
 /* Game State */
 const game = {
     potatoes: 0,
     farmers: 0,
     potatoPerClick: 1,
-    potatoPerSecond: 0,
+    potatoesPerSecond: 0,
     fertilizer: 0,
     tractor: 0,
     pesticide: 0,
     hoe: 0,
-    potatoTier: 1
+    potatoTier: 1,
+    autoHarvester: 0
 };
 /* More states */
 let isPressed = false
@@ -41,6 +42,7 @@ function updateUI() {
   buyFertilizer.textContent = `Buy Fertilizer (${getFertilizerCost()} Potatoes)`;
   buyTractor.textContent = `Buy Tractor (${getTractorCost()} Potatoes)`;
   buyPesticide.textContent = `Buy Pesticide (${getPesticideCost()}) Potatoes`;
+  buyautoHarvester.textContent = `Buy Auto Harvester (${getautoHarvesterCost()}) Potatos`;
   if (game.farmers >= 30) {
     document.querySelector('.tractorbutton').style.visibility = 'visible';
     }
@@ -62,13 +64,20 @@ function updateUI() {
   if (game.fertilizer >= 20) {
   document.querySelector('.pesticidebutton').style.visibility = 'visible';
   }
-  if (game.potatoeTier === 2) {potatoImage.src = potato2.jpeg};
+  //if (game.potatoTier < 2 && game.potatoes >= 100000) {
+  //  game.potatoTier = 2;
+  //}
+  //potatoImage.src = game.potatoTier >= 2 ? 'images/potato1.png' : 'images/potato1.png';
+  if (game.farmers >= 50) {
+    document.querySelector('.autoHarvesterbutton').style.visibility = 'visible';
+  }
   // Upgrade Counts //
   farmerCount.textContent = `Farmers: ${game.farmers}`;
   fertilizerCount.textContent = `Fertilizers: ${game.fertilizer}`;
   tractorCount.textContent = `Tractors: ${game.tractor}`;
   hoeTier.textContent = `Hoe Tier: ${game.hoe}`;
   pesticideCount.textContent = `Pesticides: ${game.pesticide}`;
+  autoHarvesterCount.textContent = `Auto Harvesters: ${game.autoHarvester}`;
 };
 
 /* Safe Dom Get */
@@ -79,11 +88,18 @@ const potatoButton = el("potatoButton");
 const potatoImage = el("potatoImage")
 const clickvalue = el("clickvalue");
 const secondvalue = el("secondvalue");
+const farmerCount = el("farmerCount");
+const fertilizerCount = el("fertilizerCount");
+const tractorCount = el("tractorCount");
+const hoeTier = el("hoeTier");
+const pesticideCount = el("pesticideCount");
+const autoHarvesterCount = el("autoHarvesterCount");
 /* Upgrades */
 const buyFarmer = el("buyFarmer");
 const buyTractor = el("buyTractor");
 const buyFertilizer = el("buyFertilizer");
 const buyPesticide = el("buyPesticide");
+const buyautoHarvester = el("buyautoHarvester");
 /* Hoes */
 const buyHoe1 = el("buyHoe1");
 const buyHoe2 = el("buyHoe2");
@@ -108,19 +124,21 @@ function clickPotato() {
 
     console.log("Ui Updated. Total Potatoes: " + game.potatoes);
 
-      /* Check for tier upgrading */
-      if (game.potatoTier >= 2) {
-        if (game.potatoes <= 1000000) {
-          game.potatoTier += 1;
-        }};
+
     updateUI();
 };
 
-const potatoesPerSecond = () => {
-    if (game.potatoPerSecond === 0) return;
-    game.potatoes += game.potatoPerSecond;
-    console.log("Ui Updated. Automatically gained: " + game.potatoPerSecond);
-    updateUI();
+function potatoesPerSecond() {
+  let value = 0;
+
+    /* Base Upgrades */
+    value += game.farmers;
+    value += (game.tractor * 3);
+    value += (game.autoHarvester * getClickValue());
+    /* Doubling Tripling etc. (must be at end) */
+    if (game.hoe >= 4) { value *= 3; }
+    game.potatoPerSecond = value;
+    return value;
 };
 
 function getFarmerCost() {
@@ -139,13 +157,16 @@ function getPesticideCost() {
   return 100 + game.pesticide * 75
 }
 
+function getautoHarvesterCost() {
+  return 100000 + game.autoHarvester * 50000
+}
+
 function buyFarmerfunc() {
       const cost = getFarmerCost();
     if (game.potatoes < cost) return;
 
     game.potatoes -= cost;
     game.farmers += 1;
-    game.potatoPerSecond += 1;
     console.log("Ui Updated. Farmer Bought, Total Farmers: " + game.farmers);
     updateUI();
 };
@@ -167,7 +188,6 @@ function buyTractorfunc() {
 
     game.potatoes -= cost;
     game.tractor += 1;
-    game.potatoPerSecond += 3;
   console.log("Ui Updated. Tractor Bought, Total Tractors: " + game.tractor);
     updateUI();
 };
@@ -180,6 +200,16 @@ function buyPesticidefunc() {
   game.potatoes -= cost;
   game.pesticide += 1;
   console.log("Ui Updated. Pesticide Bought, Total Pesticides: " + game.pesticide);
+  updateUI();
+}
+
+function buyautoHarvesterfunc() {
+  const cost = getautoHarvesterCost();
+  if (game.farmers < 50 || game.potatoes < cost) return;
+
+  game.potatoes -= cost;
+  game.autoHarvester += 1;
+  console.log("Ui Updated. Auto Harvester Bought, Total Auto Harvesters: " + game.autoHarvester);
   updateUI();
 }
 
@@ -296,8 +326,13 @@ document.addEventListener("keyup", (e) => {
 
 /* Automatics */
 setInterval(() => {
-    potatoesPerSecond();
+  game.potatoes += potatoesPerSecond();
+  updateUI();
 }, 1000);
+
+setInterval;(() => {
+  updateUI();
+}, 50);
 
 /* Init */
 loadGame();

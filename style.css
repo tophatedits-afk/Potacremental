@@ -16,6 +16,9 @@
 .pesticidebutton {
     visibility: hidden;
 }
+.autoHarvester {
+    visibility: hidden;
+}
 #game-title {
     text-align: center;
     margin-top: 20px;
